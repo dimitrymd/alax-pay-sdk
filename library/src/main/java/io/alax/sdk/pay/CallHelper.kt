@@ -73,7 +73,8 @@ object CallHelper {
   }
 
   private var _currentActivity: Activity? = null
-  private var _latestTransactionConfirmation: TransactionConfirmation? = null;
+  private var _latestTransactionConfirmation: TransactionConfirmation? = null
+  private var _isConfirmed: Boolean = false
 
   @JvmStatic
   @JvmOverloads
@@ -93,9 +94,21 @@ object CallHelper {
   @JvmOverloads
   fun setLastTransactionConfrimation(transactionConfirmation: TransactionConfirmation) {
     _latestTransactionConfirmation = transactionConfirmation
+    if (transactionConfirmation.blockNum != 0L) {
+      _isConfirmed = true
+    }
   }
 
+  @JvmStatic
+  @JvmOverloads
+  fun getIsConfrimed():Boolean? = _isConfirmed
 
 
-
+  @JvmStatic
+  @JvmOverloads
+  fun resetLastTransactionData() {
+    _latestTransactionConfirmation = null
+    _isConfirmed = false
+  }
+  
 }
